@@ -1,4 +1,4 @@
-# Aesthetic Website Designs
+# 3D_Aesthetic Website Design
 
 A small, opinionated front-end project demonstrating clean, modern web aesthetics and interactive UI patterns. Browse the demo to learn practical visual techniques: sticky sections, scroll-driven sequences, layered imagery, and a lightweight vehicle configurator.
 
@@ -36,6 +36,10 @@ npm install
 ```
 npm run dev
 ```
+
+Model credit
+
+- Author: Ddiaz Design — https://sketchfab.com/ddiaz-design
 
 Contributions welcome — open issues or PRs with any aesthetic tweaks or small component improvements.
 
