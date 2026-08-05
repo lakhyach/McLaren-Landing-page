@@ -1,16 +1,41 @@
-# React + Vite
+# Aesthetic Website Designs
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small, opinionated front-end project demonstrating clean, modern web aesthetics and interactive UI patterns. Browse the demo to learn practical visual techniques: sticky sections, scroll-driven sequences, layered imagery, and a lightweight vehicle configurator.
 
-Currently, two official plugins are available:
+Features
+- **Playful visuals:** layered hero and frame compositions for depth.
+- **Interactive UI:** sticky scroll, scroll sequences, and responsive configurator.
+- **Learning-focused:** clear components to study and reuse in your own projects.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Showcase
 
-## React Compiler
+Here are a few snapshots from the website:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Hero section
+![Hero section](public/hero_1.png)
 
-## Expanding the ESLint configuration
+### Configurator
+![Configurator](public/config_1.png)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Configurator 
+![Configurator](public/config_2.png)
+
+### Footer section
+![Footer section](public/footer_1.png)
+
+Quick start
+
+1. Install dependencies:
+
+```
+npm install
+```
+
+2. Run the dev server:
+
+```
+npm run dev
+```
+
+Contributions welcome — open issues or PRs with any aesthetic tweaks or small component improvements.
+
