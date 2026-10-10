@@ -2,12 +2,12 @@ import React, { useRef, useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { AERO } from '../assets/content'
 
-// Original vector blueprint of the GT-01 side profile with live airflow
+// Vector blueprint of the P1 side profile with live airflow
 // streamlines. No bitmap asset; every shape here is authored for this project.
 function Blueprint({ activeId, reduce }) {
   const on = (id) => activeId === id
   return (
-    <svg viewBox="0 0 420 200" className="h-full w-full" role="img" aria-label="GT-01 aerodynamic blueprint">
+    <svg viewBox="0 0 420 200" className="h-full w-full" role="img" aria-label="P1 aerodynamic blueprint">
       <defs>
         <linearGradient id="stroke" x1="0" x2="1">
           <stop offset="0" stopColor="#8b8b94" />

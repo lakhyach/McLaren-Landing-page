@@ -29,11 +29,11 @@ export default function Manifesto() {
             A study in how far a browser can push automotive storytelling.
           </h2>
           <p className="mt-6 max-w-xl text-sm font-light leading-relaxed text-titanium-300 md:text-base">
-            The GT-01 is not a photograph or a baked video. It is generated live — geometry, clearcoat
+            The P1 here is not a photograph or a baked video. It is rendered live — geometry, clearcoat
             physics, a lightformer studio and a scroll-bound camera — so every interaction stays honest
-            to what the hardware can actually do. It borrows the <em>language</em> of motorsport design
-            (a low monocoque, an ember light signature, an active tail) and rebuilds it as something
-            original you can orbit, recolour and inspect.
+            to what the hardware can actually do. One of motorsport’s most uncompromising road cars —
+            a low monoVage, an active tail, a teardrop tail light — rebuilt as a real-time study you can
+            orbit, recolour and inspect.
           </p>
         </motion.div>
 

@@ -75,7 +75,7 @@ export default function Hero() {
                   onClick={go('#configure')}
                   className="rounded-full bg-papaya-500 px-7 py-3 text-sm font-semibold text-carbon-950 transition-colors hover:bg-papaya-400"
                 >
-                  Configure the GT-01
+                  Configure the P1
                 </button>
                 <button
                   onClick={go('#performance')}

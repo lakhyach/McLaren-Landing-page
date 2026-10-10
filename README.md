@@ -1,23 +1,24 @@
-# VELOCE GT-01 — McLaren-Inspired 3D Concept
+# McLaren P1 — Real-Time 3D Study
 
-> An independent, real-time WebGL automotive concept experience built as a
-> portfolio study. **Not affiliated with or endorsed by McLaren Automotive or any
-> vehicle manufacturer.** See [`NOTICE.md`](./NOTICE.md) for the full licensing &
-> provenance disclosure.
+> An independent, real-time WebGL automotive study built as a portfolio piece.
+> **Not affiliated with or endorsed by McLaren Automotive.** See
+> [`NOTICE.md`](./NOTICE.md) for the full licensing & provenance disclosure.
 
-A cinematic landing page for a fictional hypercar, rendered entirely in the
-browser with **React Three Fiber**. The vehicle is **original, procedural
-geometry** — no third-party 3D model, HDRI or bitmap is required, so it loads
-fast and stays legally clean.
+A cinematic landing page for the McLaren P1, rendered live in the browser with
+**React Three Fiber**. The vehicle is an authentic community model
+([vecarz](https://sketchfab.com/heynic), **CC-BY 4.0**, see credits) optimised
+for the web (2.3 MB GLB), driven by a scroll-bound camera rig and a live
+materials configurator.
 
-![VELOCE GT-01](./public/og.svg)
+![McLaren P1 3D study](./public/og.svg)
 
 ## What's here
 
 - **Cinematic WebGL hero** — a scroll-bound camera that flies through the car,
   driven by Framer Motion and a custom keyframe rig, with mouse parallax.
-- **Original procedural 3D car** — extruded monocoque, glass canopy, four wheels,
-  active rear wing and an emissive light signature, all authored in code.
+- **Authentic McLaren P1 model** — 203k-tri GLB by vecarz (CC-BY 4.0),
+  re-encoded for the web (meshopt + WebP, 2.3 MB); real clearcoat paint,
+  glass, interior, wheels and an emissive light signature.
 - **Custom lightformer studio** — PBR clearcoat paint lit by a baked `<Lightformer>`
   environment (no external HDRI download).
 - **Scroll storytelling** — an animated, original SVG aerodynamic blueprint with
@@ -46,19 +47,22 @@ npm run preview  # preview the production build
 
 ```
 src/
-  three/         # ConceptCar.jsx, StudioEnvironment.jsx, HeroScene.jsx (procedural 3D)
+  three/         # ConceptCar.jsx (P1 loader/materials), StudioEnvironment.jsx, HeroScene.jsx
   components/    # Preloader, Nav, Hero, Performance, AeroStory, Manifesto, Configurator, Footer
   lib/hooks.js   # reduced-motion + device-capability hooks
-  assets/content.js  # original copy, specs, configurator data
+  assets/content.js  # copy, specs, configurator data
 ```
 
 ## Credits
 
-- Design, 3D, engineering & copy: **Lakhya Jit** — lakhya911@gmail.com
+- Design, engineering & copy: **Lakhya Jit** — lakhya911@gmail.com
+- 3D model: **“Mclaren P1 | www.vecarz.com”** by [vecarz](https://sketchfab.com/heynic),
+  licensed **CC-BY 4.0** via Sketchfab (credited in the site footer)
 - Font: Space Grotesk (SIL OFL 1.1), Inter (SIL OFL 1.1)
 - Open-source libraries under their own MIT/ISC licenses (see NOTICE.md)
 
 ## License
 
-Original source code © 2026 Lakhya Jit — [MIT](./LICENSE). This license does not
-cover any third-party trademarks or vehicle designs. See [NOTICE.md](./NOTICE.md).
+Original source code © 2026 Lakhya Jit — [MIT](./LICENSE). The 3D model asset is
+CC-BY 4.0 (vecarz). This license does not cover any third-party trademarks or
+vehicle designs. See [NOTICE.md](./NOTICE.md).

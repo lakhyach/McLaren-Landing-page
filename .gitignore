@@ -37,3 +37,6 @@ snap-*.txt
 
 # Blender render previews (QA artifacts; the .py source is committed)
 blender/preview*.png
+
+# Downloaded third-party asset archives (license: CC-BY vecarz P1; not app bundle)
+asset-incoming

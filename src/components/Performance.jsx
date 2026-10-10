@@ -44,7 +44,7 @@ export default function Performance() {
             </h2>
           </div>
           <p className="max-w-xs text-sm font-light leading-relaxed text-titanium-500">
-            Target figures for the GT-01 concept, modelled for this study. Concept values — not a
+            McLaren’s published P1 figures, shown for study purposes. Not a quotation or a
             production specification.
           </p>
         </div>

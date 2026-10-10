@@ -101,7 +101,16 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col gap-2 border-t border-white/5 pt-6 text-[11px] text-titanium-500 md:flex-row md:items-center md:justify-between">
           <span>
-            © {new Date().getFullYear()} Lakhya Jit · {BRAND.marque} {BRAND.model}
+            © {new Date().getFullYear()} Lakhya Jit · {BRAND.marque} {BRAND.model} · 3D model:{' '}
+            <a
+              href="https://sketchfab.com/3d-models/mclaren-p1-wwwvecarzcom-adae2edc721e4ce7b31c1d06a581e30a"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-white/20 underline-offset-2 hover:text-paper"
+            >
+              vecarz
+            </a>{' '}
+            (CC-BY 4.0)
           </span>
           <span className="max-w-2xl md:text-right">
             Unofficial concept. Not affiliated with or endorsed by McLaren Automotive. All trademarks
