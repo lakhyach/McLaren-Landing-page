@@ -1,7 +1,7 @@
 {
-  "name": "my-project",
+  "name": "veloce-gt01-concept",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,10 +14,8 @@
     "@react-three/fiber": "^9.6.1",
     "@tailwindcss/vite": "^4.2.2",
     "framer-motion": "^12.38.0",
-    "lucide-react": "^1.8.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "react-router-dom": "^7.14.0",
     "tailwindcss": "^4.2.2",
     "three": "^0.185.1"
   },
@@ -29,6 +27,7 @@
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
+    "eslint-plugin-react": "^7.37.5",
     "globals": "^17.4.0",
     "vite": "^8.0.4"
   }
