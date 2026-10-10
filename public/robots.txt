@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lakhyajit-96.github.io/sitemap.xml
+Sitemap: https://veloce-gt01-concept.vercel.app/sitemap.xml
