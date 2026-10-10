@@ -32,3 +32,8 @@ dist-ssr
 # Local QA screenshots / captures (not part of the app)
 qa-*.png
 qa-final*.png
+tmp-*.png
+snap-*.txt
+
+# Blender render previews (QA artifacts; the .py source is committed)
+blender/preview*.png

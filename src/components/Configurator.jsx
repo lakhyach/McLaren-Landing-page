@@ -56,7 +56,7 @@ export default function Configurator() {
                     onClick={() => setPaint(c)}
                     title={c.name}
                     className="group relative flex flex-col items-center justify-end rounded-lg transition-all duration-300"
-                    style={{ backgroundColor: c.swatch, width: selected ? '26%' : '9%' }}
+                    style={{ backgroundColor: c.swatch, width: selected ? '26%' : '9%', minWidth: '34px' }}
                   >
                     {!selected && (
                       <span className="absolute inset-0 rounded-lg opacity-0 transition-opacity group-hover:opacity-100" style={{ boxShadow: 'inset 0 0 0 2px rgba(255,255,255,.5)' }} />
@@ -112,7 +112,7 @@ export default function Configurator() {
                     aria-label={c.name}
                     aria-pressed={caliper.id === c.id}
                     onClick={() => setCaliper(c)}
-                    className={`h-9 w-9 rounded-full border-2 transition-transform ${
+                    className={`h-10 w-10 rounded-full border-2 transition-transform ${
                       caliper.id === c.id ? 'scale-110 border-paper' : 'border-white/15 hover:scale-105'
                     }`}
                     style={{ backgroundColor: c.hex }}
@@ -177,8 +177,9 @@ export default function Configurator() {
           </div>
         </div>
 
-        {/* Viewport */}
-        <div ref={canvasWrap} className="relative order-1 h-[52vh] w-full bg-gradient-to-b from-carbon-850 to-carbon-950 lg:order-2 lg:h-full lg:w-[62%]">
+        {/* Viewport — sticky on mobile so the car stays visible while the
+            controls scroll over it; static on desktop (side-by-side layout). */}
+        <div ref={canvasWrap} className="sticky top-0 order-1 z-20 h-[45vh] w-full bg-gradient-to-b from-carbon-850 to-carbon-950 lg:static lg:order-2 lg:h-full lg:w-[62%]">
           <Canvas
             shadows={profile.shadows}
             dpr={profile.dpr}

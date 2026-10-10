@@ -1,45 +1,23 @@
-import React, { useRef, useMemo } from 'react'
+import React, { useRef, useMemo, useEffect } from 'react'
 import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
-import { RoundedBox } from '@react-three/drei'
+import { useGLTF } from '@react-three/drei'
 
 /**
- * ConceptCar — an ORIGINAL, fully procedural stylised hypercar built from
- * stacked rounded forms (chassis, bonnet, rear deck, cabin) plus wheels, an
- * active wing and an emissive light signature. No third-party 3D asset.
+ * ConceptCar — loads the ORIGINAL, Blender-authored VELOCE GT-01 hypercar GLB
+ * (a real, detailed, interactive 3D mesh — no third-party asset) and drives its
+ * PBR materials live: paint, rims and calipers recolour the actual model, the
+ * active wing toggles, and named parts report hotspots.
  *
- * Units are authored "car-scale" then scaled by the parent group.
+ * The model is authored in metres (front +X, up +Z in Blender → Y-up on export)
+ * and is normalised here so it always sits on the floor and matches the scene.
  */
 
-function Wheel({ position, flip, rimColor, caliperColor }) {
-  return (
-    <group position={position}>
-      {/* tyre (axis along Z so it rolls along X) */}
-      <mesh rotation={[Math.PI / 2, 0, 0]} castShadow>
-        <cylinderGeometry args={[0.5, 0.5, 0.42, 40]} />
-        <meshStandardMaterial color="#0b0b0d" roughness={0.85} metalness={0.1} />
-      </mesh>
-      {/* outer rim face */}
-      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, flip * 0.22]}>
-        <cylinderGeometry args={[0.34, 0.34, 0.03, 34]} />
-        <meshStandardMaterial color={rimColor} roughness={0.28} metalness={0.95} />
-      </mesh>
-      {/* hub */}
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <cylinderGeometry args={[0.16, 0.16, 0.46, 24]} />
-        <meshStandardMaterial color="#1a1a20" roughness={0.4} metalness={0.8} />
-      </mesh>
-      {/* brake caliper */}
-      <mesh position={[0, 0.28, flip * 0.16]}>
-        <boxGeometry args={[0.14, 0.2, 0.1]} />
-        <meshStandardMaterial color={caliperColor} roughness={0.4} metalness={0.4} emissive={caliperColor} emissiveIntensity={0.15} />
-      </mesh>
-    </group>
-  )
-}
+const MODEL_URL = '/veloce-gt01.glb'
+const TARGET_LEN = 2.9 // scene units the car is scaled to
 
 export default function ConceptCar({
-  paint = { hex: '#ff6a1f', metalness: 0.85, roughness: 0.28 },
+  paint = { hex: '#ff6a1f', metalness: 0.7, roughness: 0.3 },
   rimColor = '#d4d4d8',
   caliperColor = '#ff6a1f',
   wing = true,
@@ -48,104 +26,81 @@ export default function ConceptCar({
   onHotspot = () => {},
   ...props
 }) {
+  const { scene } = useGLTF(MODEL_URL)
   const group = useRef()
+  const tmp = useMemo(() => new THREE.Color(), [])
 
-  // One shared paint material so every body panel recolours together.
-  const paintMat = useMemo(
-    () =>
-      new THREE.MeshPhysicalMaterial({
-        color: paint.hex,
-        metalness: paint.metalness,
-        roughness: paint.roughness,
-        clearcoat: 1,
-        clearcoatRoughness: 0.06,
-        envMapIntensity: 1.0,
-      }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  )
+  // Clone the imported scene once so each <Canvas> instance owns independent
+  // material copies (hero and configurator never fight over shared materials),
+  // and apply the one-time premium clearcoat tuning while creating them.
+  const { model, mats } = useMemo(() => {
+    const root = scene.clone(true)
+    const materials = {}
+    root.traverse((o) => {
+      if (!o.isMesh) return
+      const src = Array.isArray(o.material) ? o.material[0] : o.material
+      const clone = src.clone()
+      clone.name = src.name
+      o.material = clone
+      if (!materials[clone.name]) materials[clone.name] = clone
+      o.castShadow = true
+      o.receiveShadow = false
+    })
 
-  const setPaint = (e) => {
-    e.stopPropagation()
-    onHotspot('powertrain')
-  }
+    const { BodyPaint, Rim, Chrome, Glass, Carbon } = materials
+    if (BodyPaint) BodyPaint.setValues({ envMapIntensity: 1.25, clearcoat: 1, clearcoatRoughness: 0.04 })
+    if (Rim) Rim.setValues({ metalness: 1, roughness: 0.26, envMapIntensity: 1.5 })
+    if (Chrome) Chrome.setValues({ envMapIntensity: 1.6 })
+    if (Glass) Glass.setValues({ envMapIntensity: 1.7, clearcoat: 1 })
+    if (Carbon) Carbon.setValues({ envMapIntensity: 0.85 })
+
+    // Normalise: centre on X/Z, rest the wheels on y=0, scale to TARGET_LEN.
+    const box = new THREE.Box3().setFromObject(root)
+    const size = box.getSize(new THREE.Vector3())
+    const center = box.getCenter(new THREE.Vector3())
+    const s = TARGET_LEN / (size.x || 1)
+    root.scale.setScalar(s)
+    root.position.set(-center.x * s, -box.min.y * s, -center.z * s)
+
+    const wrap = new THREE.Group()
+    wrap.add(root)
+    return { model: wrap, mats: materials }
+  }, [scene])
+
+  // Toggle the active rear wing.
+  useEffect(() => {
+    model.traverse((o) => {
+      if (o.name && o.name.startsWith('Wing')) o.visible = wing
+    })
+  }, [model, wing])
 
   useFrame((state, delta) => {
-    if (paintMat) {
-      paintMat.color.lerp(new THREE.Color(paint.hex), reducedMotion ? 1 : 0.12)
-      paintMat.metalness = THREE.MathUtils.lerp(paintMat.metalness, paint.metalness, 0.12)
-      paintMat.roughness = THREE.MathUtils.lerp(paintMat.roughness, paint.roughness, 0.12)
+    const k = reducedMotion ? 1 : 0.12
+    if (mats.BodyPaint) {
+      mats.BodyPaint.color.lerp(tmp.set(paint.hex), k)
+      mats.BodyPaint.setValues({
+        metalness: THREE.MathUtils.lerp(mats.BodyPaint.metalness, paint.metalness ?? 0.7, k),
+        roughness: THREE.MathUtils.lerp(mats.BodyPaint.roughness, paint.roughness ?? 0.3, k),
+      })
     }
-    if (group.current && idleSpin && !reducedMotion) {
-      group.current.rotation.y += delta * 0.16
-    }
+    if (mats.Rim) mats.Rim.color.lerp(tmp.set(rimColor), k)
+    if (mats.Caliper) mats.Caliper.color.lerp(tmp.set(caliperColor), k)
+    if (group.current && idleSpin && !reducedMotion) group.current.rotation.y += delta * 0.16
   })
 
+  const handleClick = (e) => {
+    const n = e.object?.name || ''
+    e.stopPropagation()
+    if (n.startsWith('Wing')) onHotspot('wing')
+    else if (n === 'Cabin') onHotspot('canopy')
+    else onHotspot('powertrain')
+  }
+
   return (
-    <group ref={group} {...props} dispose={null}>
-      {/* Chassis */}
-      <RoundedBox args={[4.5, 0.62, 1.7]} radius={0.22} smoothness={5} position={[0, 0.52, 0]} castShadow receiveShadow onClick={setPaint} material={paintMat} />
-
-      {/* Bonnet wedge */}
-      <RoundedBox args={[1.7, 0.36, 1.55]} radius={0.16} smoothness={4} position={[1.35, 0.78, 0]} scale={[1, 1, 0.92]} castShadow onClick={setPaint} material={paintMat} />
-
-      {/* Rear deck */}
-      <RoundedBox args={[1.5, 0.36, 1.6]} radius={0.16} smoothness={4} position={[-1.55, 0.8, 0]} castShadow onClick={setPaint} material={paintMat} />
-
-      {/* Cabin / glass canopy */}
-      <RoundedBox
-        args={[1.9, 0.6, 1.32]}
-        radius={0.28}
-        smoothness={5}
-        position={[-0.1, 1.02, 0]}
-        onClick={(e) => { e.stopPropagation(); onHotspot('canopy') }}
-      >
-        <meshPhysicalMaterial color="#0a0a0d" metalness={0.4} roughness={0.05} transparent opacity={0.6} envMapIntensity={1.6} />
-      </RoundedBox>
-
-      {/* Lower carbon skirt */}
-      <RoundedBox args={[3.9, 0.24, 1.55]} radius={0.08} smoothness={3} position={[0, 0.26, 0]}>
-        <meshStandardMaterial color="#141418" roughness={0.5} metalness={0.6} />
-      </RoundedBox>
-
-      {/* Front splitter + rear diffuser */}
-      <RoundedBox args={[0.4, 0.08, 1.6]} radius={0.03} smoothness={2} position={[2.28, 0.26, 0]}>
-        <meshStandardMaterial color="#0f0f12" roughness={0.4} metalness={0.7} />
-      </RoundedBox>
-      <RoundedBox args={[0.4, 0.1, 1.55]} radius={0.03} smoothness={2} position={[-2.32, 0.3, 0]}>
-        <meshStandardMaterial color="#0f0f12" roughness={0.4} metalness={0.7} />
-      </RoundedBox>
-
-      {/* Light signature */}
-      <mesh position={[2.34, 0.62, 0]}>
-        <boxGeometry args={[0.05, 0.08, 1.15]} />
-        <meshStandardMaterial color="#ffe6c4" emissive="#ffcf9a" emissiveIntensity={0.7} toneMapped={false} />
-      </mesh>
-      <mesh position={[-2.36, 0.66, 0]}>
-        <boxGeometry args={[0.05, 0.08, 1.3]} />
-        <meshStandardMaterial color="#ff3b12" emissive="#ff2a00" emissiveIntensity={1.1} toneMapped={false} />
-      </mesh>
-
-      {/* Active rear wing */}
-      {wing && (
-        <group position={[-2.28, 1.12, 0]} onClick={(e) => { e.stopPropagation(); onHotspot('wing') }}>
-          <RoundedBox args={[0.36, 0.06, 1.75]} radius={0.02} smoothness={3} castShadow>
-            <meshStandardMaterial color="#111116" roughness={0.35} metalness={0.7} />
-          </RoundedBox>
-          {[-0.72, 0.72].map((z) => (
-            <mesh key={z} position={[0.06, -0.28, z]}>
-              <boxGeometry args={[0.12, 0.5, 0.06]} />
-              <meshStandardMaterial color="#111116" roughness={0.4} metalness={0.7} />
-            </mesh>
-          ))}
-        </group>
-      )}
-
-      {/* Wheels */}
-      <Wheel position={[1.42, 0.5, 0.86]} flip={1} rimColor={rimColor} caliperColor={caliperColor} />
-      <Wheel position={[1.42, 0.5, -0.86]} flip={-1} rimColor={rimColor} caliperColor={caliperColor} />
-      <Wheel position={[-1.42, 0.5, 0.86]} flip={1} rimColor={rimColor} caliperColor={caliperColor} />
-      <Wheel position={[-1.42, 0.5, -0.86]} flip={-1} rimColor={rimColor} caliperColor={caliperColor} />
+    <group ref={group} {...props}>
+      <primitive object={model} onClick={handleClick} />
     </group>
   )
 }
+
+useGLTF.preload(MODEL_URL)

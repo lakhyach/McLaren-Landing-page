@@ -35,8 +35,9 @@ export default function Hero() {
           <HeroScene progressRef={progressRef} profile={profile} />
         </div>
 
-        {/* legibility gradient */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-carbon-950 via-carbon-950/10 to-carbon-950/40" />
+        {/* legibility gradient — heavier at the bottom so the headline keeps
+            contrast when the car sits behind the copy on tall screens */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-carbon-950 from-35% via-carbon-950/30 to-carbon-950/40" />
 
         {/* content */}
         <motion.div

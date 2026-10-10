@@ -30,22 +30,33 @@ function sample(p) {
 }
 
 function CameraRig({ progressRef, reducedMotion }) {
-  const { camera, pointer } = useThree()
+  const { pointer } = useThree()
   const look = useRef(new THREE.Vector3(0, 0.5, 0))
 
   useFrame((state) => {
+    const cam = state.camera
     const p = progressRef.current
     const k = reducedMotion ? KEYS[0] : sample(p)
     const bob = reducedMotion ? 0 : Math.sin(state.clock.elapsedTime * 0.5) * 0.05
 
-    const target = new THREE.Vector3(k.pos[0], k.pos[1] + bob, k.pos[2])
+    // Fit the whole car in narrow/portrait viewports: pull the rig back and
+    // widen the vertical fov so the nose and tail stay inside the frame.
+    const aspect = state.viewport.aspect
+    const fit = THREE.MathUtils.clamp(1.35 / Math.max(aspect, 0.4), 1, 1.6)
+    const fov = THREE.MathUtils.clamp(38 + (1.5 - aspect) * 15, 38, 58)
+    if (Math.abs(cam.fov - fov) > 0.2) {
+      cam.fov = fov
+      cam.updateProjectionMatrix()
+    }
+
+    const target = new THREE.Vector3(k.pos[0] * fit, k.pos[1] * (1 + (fit - 1) * 0.5) + bob, k.pos[2] * fit)
     // mouse parallax
     target.x += pointer.x * 0.4
     target.y += pointer.y * 0.2
-    camera.position.lerp(target, reducedMotion ? 1 : 0.06)
+    cam.position.lerp(target, reducedMotion ? 1 : 0.06)
 
     look.current.lerp(new THREE.Vector3(...k.look), 0.06)
-    camera.lookAt(look.current)
+    cam.lookAt(look.current)
   })
   return null
 }
@@ -64,11 +75,11 @@ export default function HeroScene({ progressRef, profile }) {
       }}
     >
       <color attach="background" args={['#0a0a0c']} />
-      <fog attach="fog" args={['#0a0a0c', 12, 30]} />
+      <fog attach="fog" args={['#0a0a0c', 14, 36]} />
       <CameraRig progressRef={progressRef} reducedMotion={reducedMotion} />
       <StageLights />
       <StudioEnvironment />
-      <ConceptCar idleSpin={!reducedMotion} reducedMotion={reducedMotion} position={[0, 0, 0]} scale={0.62} />
+      <ConceptCar idleSpin={!reducedMotion} reducedMotion={reducedMotion} position={[0, 0, 0]} />
       {reflector ? (
         <Floor reflector />
       ) : (

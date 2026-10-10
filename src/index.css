@@ -192,3 +192,8 @@ h5 {
     animation: none !important;
   }
 }
+
+/* ---------- Anchor offset (sticky pill nav) ---------- */
+section[id] {
+  scroll-margin-top: 6rem;
+}
