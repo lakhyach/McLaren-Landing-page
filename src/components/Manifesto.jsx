@@ -7,7 +7,7 @@ export default function Manifesto() {
   return (
     <section id="concept" className="relative overflow-hidden border-t border-white/5 bg-carbon-950 py-24 md:py-32">
       {/* marquee */}
-      <div className="animate-marquee flex select-none whitespace-nowrap opacity-[0.06]">
+      <div aria-hidden className="animate-marquee flex select-none whitespace-nowrap opacity-[0.06]">
         {[0, 1, 2, 3].map((i) => (
           <span key={i} className="font-display px-8 text-[16vw] font-bold tracking-tighter text-paper">
             {word} · CONCEPT ·
