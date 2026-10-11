@@ -39,3 +39,6 @@ blender/preview*.png
 
 # Downloaded third-party asset archives (license: CC-BY vecarz P1; not app bundle)
 asset-incoming
+
+# Lighthouse audit artifacts
+.lh-*.json
