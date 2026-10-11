@@ -40,6 +40,19 @@
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=604800" }
       ]
+    },
+    {
+      "source": "/site.webmanifest",
+      "headers": [
+        { "key": "Content-Type", "value": "application/manifest+json" },
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    },
+    {
+      "source": "/(favicon|apple-touch-icon|icon|og)[^.]*\\.(png|ico)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
     }
   ]
 }

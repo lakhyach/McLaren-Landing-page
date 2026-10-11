@@ -49,8 +49,9 @@ open-source toolchain. Every component, asset and line of copy is original.
 - **Typography** — Space Grotesk (`public/fonts/SpaceGrotesk.ttf`) is **SIL Open
   Font License 1.1** and is redistributed with credit; Inter is loaded from
   Google Fonts (**SIL Open Font License 1.1**).
-- **Favicon / OG image** — original vector artwork (`public/favicon.svg`,
-  `public/og.svg`) authored for this study.
+- **Favicon / app icons / OG image** — original vector artwork authored for this
+  study (`public/favicon.svg`, `public/og.svg`); the raster PNG/ICO set and
+  `og.png` are generated from those SVGs. No third-party logo is used.
 - All UI, copy, colour system and data are original. The procedural GT-01
   vehicle generator that shipped previously is retained for reference in
   `blender/build_car.py` but is no longer used by the site.

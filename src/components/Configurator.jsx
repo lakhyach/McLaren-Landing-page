@@ -1,6 +1,7 @@
 import React, { useRef, useState, Suspense } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, ContactShadows } from '@react-three/drei'
+import { Vector3 } from 'three'
 import { motion, AnimatePresence } from 'framer-motion'
 import ConceptCar from '../three/ConceptCar'
 import { StudioEnvironment, StageLights, Floor } from '../three/StudioEnvironment'
@@ -9,15 +10,48 @@ import { CONFIG, HOTSPOT_INFO, BRAND } from '../assets/content'
 
 const money = (n) => '$' + n.toLocaleString('en-US')
 
+const ORIGIN = new Vector3(0, 0, 0)
+const VIEWS = {
+  front:   { label: 'Front',   pos: new Vector3(0, 1.1, 6.2) },
+  profile: { label: 'Profile', pos: new Vector3(6.6, 0.9, 0.3) },
+  rear:    { label: 'Rear',    pos: new Vector3(-0.2, 1.3, -6.2) },
+  top:     { label: 'Top',     pos: new Vector3(0, 6.6, 1.8) },
+}
+
+// Flies the orbit camera to a chosen preset, then hands control back to the user.
+function CameraRig({ viewRef, controlsRef }) {
+  const { camera } = useThree()
+  useFrame(() => {
+    const goal = viewRef.current
+    const controls = controlsRef.current
+    if (!goal || !controls) return
+    camera.position.lerp(goal, 0.09)
+    controls.target.lerp(ORIGIN, 0.09)
+    controls.update()
+    if (camera.position.distanceTo(goal) < 0.03) viewRef.current = null
+  })
+  return null
+}
+
 export default function Configurator() {
   const [paint, setPaint] = useState(CONFIG.paints[0])
   const [rim, setRim] = useState(CONFIG.rims[0])
   const [caliper, setCaliper] = useState(CONFIG.calipers[0])
   const [wing, setWing] = useState(true)
   const [hotspot, setHotspot] = useState(null)
+  const [view, setView] = useState(null)
+  const [autoRotate, setAutoRotate] = useState(true)
 
   const profile = usePerformanceProfile()
   const canvasWrap = useRef(null)
+  const controlsRef = useRef(null)
+  const viewRef = useRef(null)
+
+  const flyTo = (id) => {
+    viewRef.current = VIEWS[id].pos.clone()
+    setView(id)
+    setAutoRotate(false)
+  }
 
   const total = CONFIG.basePrice + rim.price
 
@@ -139,6 +173,30 @@ export default function Configurator() {
             </div>
           </div>
 
+          {/* Camera presets */}
+          <div className="mt-8">
+            <h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-titanium-300">
+              Camera
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(VIEWS).map(([id, v]) => (
+                <button
+                  key={id}
+                  type="button"
+                  aria-pressed={view === id}
+                  onClick={() => flyTo(id)}
+                  className={`rounded-full border px-4 py-2 text-xs font-medium transition-colors ${
+                    view === id
+                      ? 'border-papaya-500/60 bg-papaya-500/10 text-paper'
+                      : 'border-white/10 bg-carbon-850 text-titanium-300 hover:border-white/25'
+                  }`}
+                >
+                  {v.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Hotspot readout */}
           <div className="mt-8 min-h-[84px] border-t border-white/10 pt-5">
             <AnimatePresence mode="wait">
@@ -207,15 +265,17 @@ export default function Configurator() {
               )}
             </Suspense>
             <OrbitControls
+              ref={controlsRef}
               enablePan={false}
               enableZoom
-              autoRotate={!profile.reducedMotion}
+              autoRotate={autoRotate && !profile.reducedMotion}
               autoRotateSpeed={0.6}
               minDistance={3.4}
               maxDistance={8}
               minPolarAngle={0.15}
               maxPolarAngle={Math.PI / 2 - 0.02}
             />
+            <CameraRig viewRef={viewRef} controlsRef={controlsRef} />
           </Canvas>
 
           <div className="pointer-events-none absolute left-5 top-5 font-mono text-[10px] uppercase tracking-[0.3em] text-titanium-500">

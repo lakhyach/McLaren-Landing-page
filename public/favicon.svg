@@ -1,5 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="14" fill="#0a0a0c"/>
-  <path d="M14 18 L32 48 L50 18" fill="none" stroke="#ff6a1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M22 14 L42 14" stroke="#f4f4f5" stroke-width="4" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="McLaren P1 apex mark">
+  <defs>
+    <linearGradient id="papaya" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff8a3d"/>
+      <stop offset="1" stop-color="#ff5a12"/>
+    </linearGradient>
+    <radialGradient id="sheen" cx="0.5" cy="0.32" r="0.75">
+      <stop offset="0" stop-color="#1a1a20"/>
+      <stop offset="1" stop-color="#08080a"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#sheen)"/>
+  <rect x="10" y="10" width="492" height="492" rx="112" fill="none" stroke="#ff6a1f" stroke-opacity="0.22" stroke-width="4"/>
+  <path d="M120 330 L256 132 L392 330" fill="none" stroke="url(#papaya)" stroke-width="62" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M176 404 L336 404" fill="none" stroke="#f4f4f5" stroke-width="34" stroke-linecap="round"/>
 </svg>

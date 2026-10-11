@@ -13,6 +13,21 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Close on Escape and lock background scroll while the mobile sheet is open.
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [open])
+
   const go = (href) => (e) => {
     e.preventDefault()
     setOpen(false)
@@ -97,6 +112,9 @@ export default function Nav() {
       <AnimatePresence>
         {open && (
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
             className="fixed inset-0 z-40 flex flex-col justify-center gap-2 bg-carbon-950/95 px-8 backdrop-blur-xl md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
