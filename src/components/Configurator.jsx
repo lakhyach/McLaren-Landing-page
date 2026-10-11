@@ -151,7 +151,7 @@ export default function Configurator() {
                   transition={{ duration: 0.2 }}
                 >
                   <h4 className="text-xs font-bold uppercase tracking-wider text-papaya-400">
-                    {HOTSPOT_INFO[hotspot] ? 'Component focus' : 'Component focus'}
+                    Component focus
                   </h4>
                   <p className="mt-1 text-sm font-light text-titanium-300">
                     {HOTSPOT_INFO[hotspot] ?? 'Click the body, canopy or wing to inspect the build.'}

@@ -1,8 +1,8 @@
 import React from 'react'
 import { BRAND, NAV_LINKS } from '../assets/content'
 
-const REPO_URL = 'https://github.com/Lakhyajit-96/McLaren-Landing-page'
-const EMAIL = 'lakhya911@gmail.com'
+const REPO_URL = 'https://github.com/lakhyach/McLaren-Landing-page'
+const EMAIL = 'lakhya.support@gmail.com'
 
 // Tiny inline icon set (keeps the bundle lean, no brand-icon dependency).
 const GithubIcon = ({ size = 14 }) => (
@@ -38,7 +38,7 @@ export default function Footer() {
               <span className="text-[10px] tracking-normal text-titanium-500">®</span>
             </div>
             <p className="mt-4 max-w-xs text-xs font-light leading-relaxed text-titanium-500">
-              {BRAND.model} — an independent, real-time WebGL design study by Lakhya Jit.
+              An independent, real-time 3D automotive experience.
             </p>
             <div className="mt-6 flex gap-3">
               <a
@@ -101,7 +101,7 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col gap-2 border-t border-white/5 pt-6 text-[11px] text-titanium-500 md:flex-row md:items-center md:justify-between">
           <span>
-            © {new Date().getFullYear()} Lakhya Jit · {BRAND.marque} {BRAND.model} · 3D model:{' '}
+            © {new Date().getFullYear()} · {BRAND.marque} {BRAND.model} · 3D model by{' '}
             <a
               href="https://sketchfab.com/3d-models/mclaren-p1-wwwvecarzcom-adae2edc721e4ce7b31c1d06a581e30a"
               target="_blank"
@@ -110,7 +110,7 @@ export default function Footer() {
             >
               vecarz
             </a>{' '}
-            (CC-BY 4.0)
+            (CC BY 4.0).
           </span>
           <span className="max-w-2xl md:text-right">
             Unofficial concept. Not affiliated with or endorsed by McLaren Automotive. All trademarks

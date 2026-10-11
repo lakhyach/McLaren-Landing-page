@@ -55,7 +55,7 @@ src/
 
 ## Credits
 
-- Design, engineering & copy: **Lakhya Jit** — lakhya911@gmail.com
+- Design, engineering & copy: **Lakhya Jit** — lakhya.support@gmail.com
 - 3D model: **“Mclaren P1 | www.vecarz.com”** by [vecarz](https://sketchfab.com/heynic),
   licensed **CC-BY 4.0** via Sketchfab (credited in the site footer)
 - Font: Space Grotesk (SIL OFL 1.1), Inter (SIL OFL 1.1)

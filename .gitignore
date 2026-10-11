@@ -30,8 +30,7 @@ dist-ssr
 .vercel
 
 # Local QA screenshots / captures (not part of the app)
-qa-*.png
-qa-final*.png
+qa*.png
 tmp-*.png
 snap-*.txt
 

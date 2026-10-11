@@ -5,7 +5,7 @@
 export const BRAND = {
   marque: 'McLaren',
   model: 'P1',
-  tagline: 'Real-time 3D study',
+  tagline: 'Real-time 3D experience',
   disclaimer:
     'This is an independent, non-commercial portfolio study in real-time WebGL created for ' +
     'web-graphics practice. The McLaren P1 3D model was authored by vecarz (www.vecarz.com) and ' +
@@ -14,16 +14,16 @@ export const BRAND = {
 }
 
 export const HERO = {
-  kicker: 'Project 01 — Real-time WebGL',
-  title: ['Form', 'sculpted by', 'airflow.'],
-  sub: 'McLaren’s hybrid hypercar explored entirely in the browser — cinematic camera work, live clearcoat physics and a fully interactive configurator. Drag to orbit. Scroll to fly through.',
+  kicker: 'The Art of Engineered Speed',
+  title: ['Born to', 'defy the', 'ordinary.'],
+  sub: 'Explore the McLaren P1 through an immersive real-time 3D experience, precision detailing and an interactive vehicle configurator. Drag to orbit — scroll to fly through.',
 }
 
 export const STATS = [
   { id: 'power', value: 916, suffix: ' hp', label: 'Combined output', detail: '3.8L twin-turbo V8 + electric' },
   { id: 'zero', value: 2.8, suffix: ' s', label: '0–100 km/h', decimals: 1, detail: 'Race mode, launch control' },
   { id: 'vmax', value: 350, suffix: ' km/h', label: 'V-max (limited)', detail: 'Wing in low-drag attitude' },
-  { id: 'weight', value: 1395, suffix: ' kg', label: 'Dry mass', detail: 'Carbon “monoVage” cell' },
+  { id: 'weight', value: 1395, suffix: ' kg', label: 'Dry mass', detail: 'Carbon MonoCage cell' },
   { id: 'dl', value: 1000, suffix: ' kg', label: 'Downforce', detail: 'Active aero at speed' },
   { id: 'range', value: 11, suffix: ' km', label: 'Electric range', detail: 'Zero-emission mode' },
 ]
@@ -32,7 +32,7 @@ export const AERO = [
   {
     id: 'monocoque',
     index: '01',
-    title: 'Carbon monoVage',
+    title: 'Carbon MonoCage',
     body: 'The passenger cell is a single carbon-fibre moulding — McLaren racing DNA, light and stiff enough that every surface on the P1 exists to move air, not to decorate it.',
   },
   {
@@ -84,7 +84,7 @@ export const HOTSPOT_INFO = {
   powertrain:
     '3.8-litre twin-turbo V8 plus electric motor — 916 hp combined through a 7-speed dual-clutch. Hybrid, not compromise.',
   canopy:
-    'Carbon “monoVage” cockpit with dihedral doors; the roofline flows straight into the flying buttresses.',
+    'Carbon MonoCage cockpit with dihedral doors; the roofline flows straight into the flying buttresses.',
   wing:
     'Speed-reactive rear wing. Deploys with velocity, stalls flat under braking, and acts as an airbrake in Race mode.',
 }

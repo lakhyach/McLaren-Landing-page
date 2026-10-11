@@ -32,8 +32,8 @@ export default function Manifesto() {
             The P1 here is not a photograph or a baked video. It is rendered live — geometry, clearcoat
             physics, a lightformer studio and a scroll-bound camera — so every interaction stays honest
             to what the hardware can actually do. One of motorsport’s most uncompromising road cars —
-            a low monoVage, an active tail, a teardrop tail light — rebuilt as a real-time study you can
-            orbit, recolour and inspect.
+            the carbon MonoCage, the active rear wing, the teardrop tail lights — rebuilt as a real-time
+            experience you can orbit, recolour and inspect.
           </p>
         </motion.div>
 
@@ -54,7 +54,7 @@ export default function Manifesto() {
             {[
               ['Stack', 'R3F · Three.js'],
               ['Motion', 'Framer Motion'],
-              ['Model', 'Procedural'],
+              ['Model', 'vecarz · CC-BY'],
             ].map(([k, v]) => (
               <div key={k} className="border-t border-white/10 pt-3">
                 <dt className="text-titanium-500">{k}</dt>
