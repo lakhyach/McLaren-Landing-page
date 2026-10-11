@@ -4,9 +4,11 @@ import Preloader from './components/Preloader'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Performance from './components/Performance'
+import Powertrain from './components/Powertrain'
 import AeroStory from './components/AeroStory'
 import Manifesto from './components/Manifesto'
 import Configurator from './components/Configurator'
+import Specifications from './components/Specifications'
 import Footer from './components/Footer'
 
 const App = () => {
@@ -31,9 +33,11 @@ const App = () => {
       <main>
         <Hero onSceneReady={() => setSceneReady(true)} />
         <Performance />
+        <Powertrain />
         <AeroStory />
         <Manifesto />
         <Configurator />
+        <Specifications />
       </main>
 
       <Footer />

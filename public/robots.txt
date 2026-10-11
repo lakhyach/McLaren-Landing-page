@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://veloce-gt01-concept.vercel.app/sitemap.xml
+Sitemap: https://mclaren-p1-experience.vercel.app/sitemap.xml

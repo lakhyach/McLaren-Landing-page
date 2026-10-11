@@ -10,7 +10,7 @@ interactive vehicle configurator with real-time material swaps.
 > identify the subject of an editorial study. See
 > [`NOTICE.md`](./NOTICE.md) for the full licensing & provenance disclosure.
 
-**Live demo:** <https://veloce-gt01-concept.vercel.app/>
+**Live demo:** <https://mclaren-p1-experience.vercel.app/>
 
 ![McLaren P1 — Real-Time 3D Experience](./public/og.png)
 

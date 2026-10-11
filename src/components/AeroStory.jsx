@@ -126,7 +126,7 @@ export default function AeroStory() {
         {/* scroll track */}
         <div className="pt-[18vh] pb-[24vh]">
           <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.4em] text-papaya-400">
-            03 — Aero &amp; design
+            04 — Aero &amp; design
           </p>
           {AERO.map((f, i) => (
             <FeatureRow key={f.id} feature={f} index={i} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />

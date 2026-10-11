@@ -61,7 +61,7 @@ export default function Configurator() {
         {/* Controls */}
         <div className="order-2 w-full overflow-y-auto border-white/5 bg-carbon-900 p-6 md:p-10 lg:order-1 lg:w-[38%] lg:border-r">
           <p className="font-mono text-[11px] uppercase tracking-[0.4em] text-papaya-400">
-            04 — Configure
+            05 — Configure
           </p>
           <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-paper md:text-4xl">
             {BRAND.marque} {BRAND.model}
