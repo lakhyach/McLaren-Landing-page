@@ -96,11 +96,10 @@ export default function Performance() {
                 {...reveal}
                 variants={container}
                 className="block flex-wrap"
-                aria-label={HEADLINE.join(' ')}
               >
                 {HEADLINE.map((w, i) => (
                   <span key={i} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
-                    <motion.span variants={wordVariant} className="inline-block" aria-hidden>
+                    <motion.span variants={wordVariant} className="inline-block">
                       {w}
                       {i < HEADLINE.length - 1 ? '\u00A0' : ''}
                     </motion.span>

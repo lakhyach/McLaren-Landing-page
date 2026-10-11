@@ -92,19 +92,19 @@ const FeatureRow = ({ feature, index, activeIndex, setActiveIndex }) => {
   return (
     <div ref={ref} className="flex min-h-[68vh] flex-col justify-center">
       <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.3em]">
-        <span className={active ? 'text-papaya-500' : 'text-carbon-600'}>AERO</span>
-        <span className={active ? 'text-titanium-300' : 'text-carbon-600'}>{feature.index}</span>
+        <span className={active ? 'text-papaya-500' : 'text-titanium-500'}>AERO</span>
+        <span className={active ? 'text-titanium-300' : 'text-titanium-500'}>{feature.index}</span>
       </div>
       <h3
         className={`mt-4 max-w-lg font-display text-3xl font-bold leading-tight tracking-tight transition-colors md:text-5xl ${
-          active ? 'text-paper' : 'text-carbon-600'
+          active ? 'text-paper' : 'text-titanium-500'
         }`}
       >
         {feature.title}
       </h3>
       <p
-        className={`mt-4 max-w-md text-sm font-light leading-relaxed transition-opacity md:text-base ${
-          active ? 'text-titanium-300 opacity-100' : 'text-titanium-500 opacity-30'
+        className={`mt-4 max-w-md text-sm font-light leading-relaxed transition-colors md:text-base ${
+          active ? 'text-titanium-300' : 'text-titanium-500'
         }`}
       >
         {feature.body}
