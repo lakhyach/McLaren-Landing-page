@@ -1,9 +1,22 @@
-import React, { useRef } from 'react'
+import React, { useRef, Suspense } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ContactShadows } from '@react-three/drei'
 import ConceptCar from './ConceptCar'
 import { StudioEnvironment, StageLights, Floor } from './StudioEnvironment'
+
+// Fires once the hero model has mounted AND painted its first frame — the
+// authoritative signal that the car is genuinely on screen (not just fetched).
+function ReadySignal({ onReady }) {
+  const fired = useRef(false)
+  useFrame(() => {
+    if (!fired.current) {
+      fired.current = true
+      requestAnimationFrame(() => onReady?.())
+    }
+  })
+  return null
+}
 
 // Cinematic keyframes the camera flies between as the page scrolls.
 const KEYS = [
@@ -61,7 +74,7 @@ function CameraRig({ progressRef, reducedMotion }) {
   return null
 }
 
-export default function HeroScene({ progressRef, profile }) {
+export default function HeroScene({ progressRef, profile, onReady }) {
   const { dpr, shadows, reflector, reducedMotion } = profile
   return (
     <Canvas
@@ -79,7 +92,10 @@ export default function HeroScene({ progressRef, profile }) {
       <CameraRig progressRef={progressRef} reducedMotion={reducedMotion} />
       <StageLights />
       <StudioEnvironment />
-      <ConceptCar idleSpin={!reducedMotion} reducedMotion={reducedMotion} position={[0, 0, 0]} />
+      <Suspense fallback={null}>
+        <ConceptCar idleSpin={!reducedMotion} reducedMotion={reducedMotion} position={[0, 0, 0]} />
+        <ReadySignal onReady={onReady} />
+      </Suspense>
       {reflector ? (
         <Floor reflector />
       ) : (

@@ -9,7 +9,7 @@ const go = (href) => (e) => {
   document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
 }
 
-export default function Hero() {
+export default function Hero({ onSceneReady }) {
   const containerRef = useRef(null)
   const progressRef = useRef(0)
   const profile = usePerformanceProfile()
@@ -32,7 +32,7 @@ export default function Hero() {
     <section id="overview" ref={containerRef} className="relative h-[340vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <div className="absolute inset-0">
-          <HeroScene progressRef={progressRef} profile={profile} />
+          <HeroScene progressRef={progressRef} profile={profile} onReady={onSceneReady} />
         </div>
 
         {/* legibility gradient — heavier at the bottom so the headline keeps

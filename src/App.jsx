@@ -11,12 +11,13 @@ import Footer from './components/Footer'
 
 const App = () => {
   const [loaded, setLoaded] = useState(false)
+  const [sceneReady, setSceneReady] = useState(false)
   const { scrollYProgress } = useScroll()
   const bar = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 })
 
   return (
     <div className="grain relative w-full bg-carbon-900 font-sans text-paper antialiased">
-      <Preloader onDone={() => setLoaded(true)} />
+      <Preloader ready={sceneReady} onDone={() => setLoaded(true)} />
 
       {/* scroll progress */}
       <motion.div
@@ -28,7 +29,7 @@ const App = () => {
       <Nav />
 
       <main>
-        <Hero />
+        <Hero onSceneReady={() => setSceneReady(true)} />
         <Performance />
         <AeroStory />
         <Manifesto />
